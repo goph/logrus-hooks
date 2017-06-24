@@ -36,6 +36,11 @@ func (h *Hook) Fire(entry *logrus.Entry) error {
 
 	// Loop through entry data to avoid modifications.
 	for k, v := range entry.Data {
+		// Convert errors to string.
+		if e, ok := v.(error); ok {
+			v = e.Error()
+		}
+
 		data[k] = v
 	}
 
